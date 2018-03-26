@@ -69,7 +69,7 @@ class PostsController < ApplicationController
 
 
   def pdf
-    "#{Rails.root}/public/download/posts/##{@post.id}/#{@post.name}.pdf"
+    send_file "#{Rails.root}/public/download/posts/##{@post.id}/#{@post.title}.pdf"
   end
 
   def download
