@@ -1,24 +1,21 @@
-# README
+# Excel, Pdf, Zip, File Operation
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This application will help you understand a way to generate pdf and excel file, compress folder and save it into custom folder...
 
 Things you may want to cover:
 
-* Ruby version
+* Ruby version - 2.4.0
 
-* System dependencies
+* System dependencies - Mac OS, Linux
 
-* Configuration
+* Configuration - bundle install
 
-* Database creation
+* Database creation - sqlite3
 
-* Database initialization
+* Database initialization - db:migrate
 
-* How to run the test suite
+* How to run the test suite - rails s
 
-* Services (job queues, cache servers, search engines, etc.)
+* Services (job queues, cache servers, search engines, etc.) - ZipFileGenerator Module (custom module)
 
-* Deployment instructions
-
-* ...
+* Deployment instructions - bundle install & db:migrate & rails s
