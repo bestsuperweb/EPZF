@@ -1,0 +1,11 @@
+wb = xlsx_package.workbook
+
+wb.add_worksheet(name: "Posts") do |sheet|
+  # this is the head row of your spreadsheet
+  sheet.add_row %w(ID Title Content Image Created)
+  
+  # each user is a row on your spreadsheet
+  @posts.each_with_index do |post, index|
+    sheet.add_row [post.id, post.title, post.content, "#{Rails.root}/public#{post.image.url}".html_safe, post.created_at ]
+  end
+end
