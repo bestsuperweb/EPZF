@@ -1,11 +1,21 @@
 wb = xlsx_package.workbook
 
-wb.add_worksheet(name: "Posts") do |sheet|
-  # this is the head row of your spreadsheet
-  sheet.add_row %w(ID Title Content Image Created)
-  
-  # each user is a row on your spreadsheet
-  @posts.each_with_index do |post, index|
-    sheet.add_row [post.id, post.title, post.content, "#{Rails.root}/public#{post.image.url}".html_safe, post.created_at ]
-  end
+wb.styles do |s|
+	gray_cell = s.add_style  :bg_color => "DFDFDF", :b => true, :alignment => { :horizontal=> :center, :vertical => :center }
+	blue_cell = s.add_style  :bg_color => "0000FF", :fg_color => "FFF"
+	
+	wb.add_worksheet(name: "Posts") do |sheet|
+	  # this is the head row of your spreadsheet
+	  sheet.add_row %w(ID Title Content Price Created)
+	  # each user is a row on your spreadsheet
+	  @posts.each_with_index do |post, index|
+	    sheet.add_row [post.id, post.title, post.content, [*5..30].sample*index, post.created_at]
+	  end
+
+	  sheet.add_row ['SUM', '', '', "=SUM(D2:D#{@posts.count+1})", '---']
+
+	  sheet["A1:E1"].each { |c| c.style = gray_cell }
+	  sheet["A2:A#{@posts.count+1}"].each { |c| c.style = blue_cell }
+	  
+	end
 end
