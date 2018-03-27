@@ -3,19 +3,22 @@ wb = xlsx_package.workbook
 wb.styles do |s|
 	gray_cell = s.add_style  :bg_color => "DFDFDF", :b => true, :alignment => { :horizontal=> :center, :vertical => :center }
 	blue_cell = s.add_style  :bg_color => "0000FF", :fg_color => "FFF"
+	default   = s.add_style  :alignment => { :wrap_text => true }
 	
 	wb.add_worksheet(name: "Posts") do |sheet|
 	  # this is the head row of your spreadsheet
 	  sheet.add_row %w(ID Title Content Price Created)
+	  sheet.column_widths nil, nil, 3, nil, nil
 	  # each user is a row on your spreadsheet
 	  @posts.each_with_index do |post, index|
-	    sheet.add_row [post.id, post.title, post.content, [*5..30].sample*index, post.created_at]
+	    sheet.add_row [post.id, post.title, post.content, [*5..30].sample*index, post.created_at], :height => 20
 	  end
 
 	  sheet.add_row ['SUM', '', '', "=SUM(D2:D#{@posts.count+1})", '---']
 
 	  sheet["A1:E1"].each { |c| c.style = gray_cell }
 	  sheet["A2:A#{@posts.count+1}"].each { |c| c.style = blue_cell }
+	  sheet["C2:C#{@posts.count+1}"].each { |c| c.style = default }
 	  
 	end
 end
