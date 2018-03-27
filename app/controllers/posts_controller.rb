@@ -60,8 +60,10 @@ class PostsController < ApplicationController
   # DELETE /posts/1
   # DELETE /posts/1.json
   def destroy
+    pdf_file = "#{Rails.root}/public/download/posts/##{@post.id}"
     @post.destroy
     respond_to do |format|
+      FileUtils.rm_rf pdf_file
       format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }
     end
