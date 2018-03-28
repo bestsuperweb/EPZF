@@ -2,17 +2,18 @@ wb = xlsx_package.workbook
 
 wb.styles do |s|
 	gray_cell = s.add_style  :bg_color => "DFDFDF", :b => true, :alignment => { :horizontal=> :center, :vertical => :center }
-	blue_cell = s.add_style  :bg_color => "0000FF", :fg_color => "FFF"
+	blue_cell = s.add_style  :bg_color => "0000FF", :fg_color => "FFF", :alignment => { :horizontal=> :center, :vertical => :center }
 	default   = s.add_style  :fg_color => "686868", :i => true, :alignment => { :vertical => :center, :wrap_text => true }
 	locked 	  = s.add_style  :locked => true
 	
 	wb.add_worksheet(name: "Posts") do |sheet|
 	  # this is the head row of your spreadsheet
+	  
 	  sheet.add_row %w(ID Title Content Price Created)
-	  sheet.column_widths nil, nil, 3, nil, nil
+	  
 	  # each user is a row on your spreadsheet
 	  @posts.each_with_index do |post, index|
-	    sheet.add_row [post.id, post.title, post.content, [*5..30].sample*index, post.created_at], :height => 50
+	    sheet.add_row [post.id, post.title, post.content, [*5..30].sample*index, post.created_at]
 	  end
 
 	  sheet.add_row ['SUM', '', '', "=SUM(D2:D#{@posts.count+1})", '---']
@@ -22,6 +23,7 @@ wb.styles do |s|
 	  sheet["A2:A#{@posts.count+1}"].each { |c| c.style = blue_cell }
 	  sheet["C2:C#{@posts.count+1}"].each { |c| c.style = default }
 	  
+	  sheet.column_widths nil, nil, 100, nil, nil
 	end
 
 	wb.add_worksheet(name: "Post Images") do |sheet|
