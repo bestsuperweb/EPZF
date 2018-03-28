@@ -23,4 +23,13 @@ wb.styles do |s|
 	  sheet["C2:C#{@posts.count+1}"].each { |c| c.style = default }
 	  
 	end
+
+	wb.add_worksheet(name: "Post Images") do |sheet|
+		sheet.add_row %w(ID Image)
+
+		@posts.each_with_index do |post, index|
+			sheet.add_row [post.id]
+			sheet.add_image(:image_src => "#{Rails.root}/public#{post.image.url.split('?')[0]}", :start_at => [1, index+1], :end_at => [1, index+1], :noSelect => true, :noMove => true)
+		end
+	end
 end
