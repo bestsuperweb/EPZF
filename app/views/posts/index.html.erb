@@ -3,6 +3,7 @@
 <h3 class="text-info">
   Posts 
   <span class="pull-right">
+    <%= link_to "Sign in with Twitter", "/auth/twitter", class: "btn btn-info" %>&nbsp;&nbsp;&nbsp;
     <%= link_to '<i class="glyphicon glyphicon-download-alt" ></i> Export to Excel'.html_safe, posts_path(format: "xlsx"), class: 'btn btn-success', target: '_blank' %>      
   </span>
 </h3>
